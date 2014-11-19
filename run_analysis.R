@@ -13,6 +13,10 @@ processData <- function() {
   sTestData <- testData[,grepl("mean|std", columns[[2]], ignore.case=FALSE)]
   colnames(sTestData)<-columnNames[[2]]
   
+  ## Read test activity data and add to test data with column name "Activity"
+  activityTestData <- read.table("UCI HAR DataSet/test/y_test.txt", header=FALSE, sep="")
+  sTestData["Activity"] <- activityTestData
+  
   ## Read train data
   trainData<-read.table("UCI HAR DataSet/train/X_train.txt", header=FALSE, sep="")
   
@@ -20,6 +24,11 @@ processData <- function() {
   sTrainData <- trainData[,grepl("mean|std", columns[[2]], ignore.case=FALSE)]
   colnames(sTrainData)<-columnNames[[2]]
   
+  ## Read test activity data and add to test data with column name "Activity"
+  activityTrainData <- read.table("UCI HAR DataSet/train/y_train.txt", header=FALSE, sep="")
+  sTrainData["Activity"] <- activityTrainData
+  
+  ## combine the two data sets
   data <- rbind(sTrainData, sTestData)
   
   write.table(data, file="tidy-data-set.txt", row.names=FALSE)
