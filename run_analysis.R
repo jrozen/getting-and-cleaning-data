@@ -43,5 +43,5 @@ processData <- function() {
   groupedData <- split(combinedData, list(combinedData$Activity, combinedData$Subject))
   columnMeans <- lapply(groupedData, colMeans)
   
-  write.table(as.data.frame(columnMeans), file="tidy-data-set.txt", row.names=FALSE)
+  write.table(t(as.data.frame(columnMeans)), file="tidy-data-set.txt", row.names=FALSE)
 }
